@@ -1,27 +1,42 @@
-# Laravel PHP Framework
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+ple Profiler
+Identity
+Persons will be identified numerically then assigned a name and other information as a characteristics, because any information known about an individual is suspect.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+Characteristics 
+(Discrete Information)
+Examples
+-Names
+-Color (eye, hair)
+-Date
+-Ethnicity
+-Gender
+-Formally Defined Relationships
+-Place
+-Religion
+-Vehicles
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+I would have liked to have a composite type composed of composite types but I'm having trouble visualizing the structure.
 
-## Official Documentation
+Simple Types
+id, name
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Composite Types
+id, group_id, type_id
 
-## Contributing
+Characteristic Record
+id, simple_id, group_id, value 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+It’s important that value could be a string, number or date.
 
-## Security Vulnerabilities
+If this were a record of simple type, the simple id would be the simple type and the composite_group_id would be 0. If this were a composite record, the simple_id would be the composite_type_id and the composite_group_id
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Narrative 
+(Non-Discrete Information)
+Notes about the person or regarding a characteristic.
 
-## License
+Sources / Evidence 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+This could be an entire app on its own. It would download from all the major social networks information about that person and ideally their entire social network’s information as well.
+
+Facebook, Instagram, Twitter, Reddit
