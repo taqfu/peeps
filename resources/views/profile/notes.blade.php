@@ -30,7 +30,7 @@
                 {{ date('F j, y H:i', strtotime($note->created_at)) }}
             </div>
             <div class='profileNote'>
-                {{ $note->note }}
+                {!! nl2br( $note->note) !!}
             </div>
         </div>
     @endforeach
