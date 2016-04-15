@@ -1,0 +1,41 @@
+<?php
+use \App\Person;
+use \App\SimpleType;
+use \App\Characteristic;
+use \App\DB;
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
+|
+*/
+
+    Route::get('/', function () {
+        return view('listings', [
+            "people" => Person::orderBy("created_at", "asc")->get(),
+        ]);
+    });
+
+    Route::get('/profile/{person_id}', function ($person_id){
+        return view ('profile.summary', [
+            "person_id" => $person_id,
+            "person_name" => DB::table('people')->where("id", $person_id)->value("name"),
+            "characteristics" => Characteristic::where('person_id', $person_id)->where("simple_id", 2)->get()
+        ]);
+    });
+
+    Route::get('/profile/{person_id}/characteristics', function ($person_id){
+        return view ('profile.characteristics', [
+            "person_id" => $person_id,
+            "simple_types" => SimpleType::orderBy("name", "asc")->get(),
+            "characteristics" => Characteristic::where('person_id', $person_id)->orderBy("simple_id", "asc")->get()
+        ]);
+    });
+
+    Route::resource('/person', 'PersonController');
+    Route::resource('/type/simple', 'SimpleTypeController');
+    Route::resource('/characteristic', 'CharacteristicController');

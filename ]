@@ -1,0 +1,44 @@
+        h2{
+            clear:both;
+            margin-bottom:0px;
+            padding-top:12px;
+            padding-bottom:4px;
+        }
+        .backLink{
+            margin-right:8px;
+            margin-left:8px;
+        }
+        .characteristicValue{
+            float:left;
+            margin-right:16px;
+        }
+        .clear{
+            clear:both;
+        }
+        .deleteForm{
+            float:left;
+            margin:0px;
+        }   
+        .left{
+            float:left;
+        }
+        .newSimpleTypeForm{
+            margin-top:16px;
+        }
+        .profileMenu{
+            float:left;
+            margin-right:8px;
+        .red{
+            color:red;
+        }
+        .selectCharacteristicType{
+            margin-right:16px;
+        }
+        .textButton { 
+             background:none!important;
+             border:none; 
+             padding:0!important;
+             font: inherit;
+             /*border is optional*/
+             cursor: pointer;
+        }   
