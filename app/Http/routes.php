@@ -3,6 +3,8 @@ use \App\Characteristic;
 use \App\DB;
 use \App\Note;
 use \App\Person;
+use \App\Group;
+use \App\GroupType;
 use \App\SimpleType;
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,8 @@ use \App\SimpleType;
         return view('listings', [
             "sort" => $order_by,
             "people" => Person::orderBy($order_by, "asc")->get(),
+            "groups" => Group :: orderBy("created_at", "asc")->geT(),
+            "group_types" => GroupType :: orderBy("name", "asc")->get(),
         ]);
     }]);
 
@@ -57,3 +61,5 @@ use \App\SimpleType;
     Route::resource('/person', 'PersonController');
     Route::resource('/type/simple', 'SimpleTypeController');
     Route::resource('/characteristic', 'CharacteristicController');
+    Route::resource('group', 'GroupController');
+    Route::resource('/group/type', 'GroupTypeController');

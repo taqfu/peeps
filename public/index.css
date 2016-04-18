@@ -7,6 +7,9 @@
         #createCharacteristicInputs{
             margin-top:8px;
         }
+        #hideGroupTypeNames, .listOfGroupTypes, .hideGroupTypesForPerson{
+            display:none;
+        }
         .backLink{
             margin-right:8px;
             margin-left:8px;
@@ -24,8 +27,18 @@
         .deleteForm{
             float:left;
             margin:0px;
+            margin-right:8px;
         }   
         .deleteNoteForm{
+        }
+        .groupForPerson{
+            float:left;
+        }
+        .groupsForPerson{
+            margin-left:16px;
+        }
+        .groupTypeName{
+            padding-left:16px;
         }
 
         .left{
@@ -54,6 +67,10 @@
             width:600px;
             height:150px;
         }
+        .personListing{
+            padding-top:8px;
+            clear:both;
+        }
         .profileHeading{
             clear:both;
             text-align:center;
@@ -81,6 +98,9 @@
         .selectCharacteristicType{
             margin-right:16px;
         }
+        .sortList{
+            margin-top:16px;
+        }   
         .sortMenu{
             margin-bottom:8px;
         }
