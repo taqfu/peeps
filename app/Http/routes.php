@@ -58,8 +58,8 @@ use \App\SimpleType;
     });
 
     Route::resource('/note', 'NoteController');
-    Route::resource('/person', 'PersonController');
+    Route::resource('person', 'PersonController');
     Route::resource('/type/simple', 'SimpleTypeController');
     Route::resource('/characteristic', 'CharacteristicController');
     Route::resource('group', 'GroupController');
-    Route::resource('/group/type', 'GroupTypeController');
+    Route::resource('groupType', 'GroupTypeController');

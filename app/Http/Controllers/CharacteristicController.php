@@ -41,7 +41,7 @@ class CharacteristicController extends Controller
         $characteristic = new Characteristic; 
         $characteristic->person_id = $request->person_id;
         $characteristic->value_type = $request->value_type;
-        $characteristic->string = $request->string_value;
+        $characteristic->string = trim($request->string_value);
         $characteristic->simple_id = $request->simple_id;
         $characteristic->save();
         return redirect("/profile/$request->person_id");

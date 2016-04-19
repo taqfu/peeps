@@ -5,11 +5,11 @@
             <li>{{ $error }}</li>
         @endforeach
     @endif
-    <form method="POST" action="/peeps/public/person">
+    <form method="POST" action="{{ route('person.store') }}">
         {{ csrf_field() }}
         <input type='submit' value='New Person' />
     </form>
-    <form method="POST" action="/peeps/public/group/type">  
+    <form method="POST" action="{{ route('groupType.store') }}">  
         {{ csrf_field() }}
         <input type='text' name='newGroupTypeName' />
         <input type='submit' value='New Group' />
@@ -20,7 +20,7 @@
     <div id='listOfGroupTypes' class='listOfGroupTypes'>
     @foreach ($group_types as $group_type)
         <div class='groupTypeName clear'>
-        <form method="POST" action="/peeps/public/group/type/{{ $group_type->id }}" class='deleteForm'>
+        <form method="POST" action="{{ route('groupType.destroy', ['id'=>$group_type->id]) }}" class='deleteForm'>
             {{ csrf_field() }}
             {{ method_field("DELETE") }}
             <input type='submit' value='x' />
@@ -57,7 +57,7 @@
             <div class='groupsForPerson'>
                 @foreach ($groups as $group)
                     @if ($group->person_id == $person->id)
-                        <form method='POST' action="/peeps/public/group/{{ $group->id }}" class='deleteForm'>
+                        <form method='POST' action="{{ route('group.destroy', ['id'=>$group->id]) }}" class='deleteForm'>
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <input type='submit' value='x' class='textButton red' />
