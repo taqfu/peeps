@@ -1,7 +1,6 @@
 @extends ('master')
 @section ('content')
     @foreach ($people as $person)
-       
     @endforeach
     <a href='/peeps/public/' class='profileMenu'>Listings </a>
     <a href='/peeps/public/profile/{{$person_id}}' class='profileMenu'>Summary</a>
@@ -10,7 +9,7 @@
         {{ $person->name }}
     </h1>
     <div class='newNoteContainer'>
-    <form method="POST" action="/peeps/public/note" class='newNoteForm'>
+    <form method="POST" action="{{ route('note.store') }}" class='newNoteForm'>
         {{ csrf_field() }}
         <input type='hidden' name='noteType' value='text' />
         <input type='hidden' name='personID' value='{{ $person_id }}' />
@@ -21,7 +20,7 @@
     </div>
     @foreach ($notes as $note)
         <div class='profileNoteContainer'>
-            <form method="POST" action="/peeps/public/note/{{ $note->id }}" class='deleteNoteForm'>
+            <form method="POST" action="{{ route('note.destroy', ['id', $note->id]) }}" class='deleteNoteForm'>
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
                 <input type='submit' value='X' class='textButton red' />

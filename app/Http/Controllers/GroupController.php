@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Group;
+use DB;
 class GroupController extends Controller
 {
     /**
@@ -15,7 +16,6 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -40,7 +40,7 @@ class GroupController extends Controller
         $group->person_id = $request->personID;
         $group->type_id = $request->typeID;
         $group->save();
-        return redirect("/");
+        return redirect("/#person".$request->personID);
     }
 
     /**
@@ -85,8 +85,9 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
+        $person_id = DB::table('groups')->where("id", $id)->value('person_id');
         Group::where("id", $id)->delete();
-        return redirect("/");
+        return redirect("/#person".$person_id);
         
         
     }

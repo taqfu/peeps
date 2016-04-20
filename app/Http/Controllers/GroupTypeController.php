@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Group;
 use App\GroupType;
 
 class GroupTypeController extends Controller
@@ -87,6 +88,7 @@ class GroupTypeController extends Controller
     public function destroy($id)
     {
         GroupType :: where("id", $id)->delete();
+        Group :: where ('type_id', $id)->delete();
         return redirect("/");
     }
 }

@@ -38,8 +38,13 @@ class PersonController extends Controller
     public function store(Request $request)
     {
         $person = new Person;
+        $person->ancillary = $request->ancillary;
         $person->save();
-        return redirect ("/");
+        if ($request->ancillary==0){
+            return redirect ("/");
+        } else if ($request->ancillary!=0){
+            return redirect ("/profile/$request->ancillary/network");
+        }
     }
 
     /**

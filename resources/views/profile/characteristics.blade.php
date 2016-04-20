@@ -1,10 +1,12 @@
 @extends ('master')
 @section ('content')
-
+<?php 
+    define('URL_CHARACTERISTIC', 8);
+?>
     <a href='/peeps/public/' class='profileMenu'>Listings</a>
     <a href='/peeps/public/profile/{{$person_id}}' class='profileMenu'>Summary</a>
     <a href='/peeps/public/profile/{{$person_id}}/notes' class='profileMenu'>Notes</a>
-    <form method="POST" action="/peeps/public/type/simple" class='newSimpleTypeForm'>
+    <form method="POST" action="{{ route('simpleType.store') }}" class='newSimpleTypeForm'>
         {{ csrf_field() }}
         <input type='text' name="newSimpleTypeName" />
         <input type='hidden' name="person_id" value="{{ $person_id }}" />
@@ -30,13 +32,19 @@
         <h2 class='new'> {{ $characteristic->type->name}} </h2>
         <?php $old_simple_type = $characteristic->simple_id; ?>
         @endif
-        <form method="POST" action="/peeps/public/characteristic/{{$characteristic->id}}" class='deleteForm'>
+        <form method="POST" action="{{ route('characteristic.destroy', ['id'=> $characteristic->id]) }}" class='deleteForm'>
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
             <input type='submit' value='x' class='textButton red'/>
         </form>
         <div class='characteristicValue'>
+            @if ($characteristic->simple_id==URL_CHARACTERISTIC)
+                <a href="{{ $characteristic->string }}">
+            @endif
             {{ $characteristic->string }}
+            @if ($characteristic->simple_id==URL_CHARACTERISTIC)
+                </a>
+            @endif
         </div>
     @endforeach
 @endsection

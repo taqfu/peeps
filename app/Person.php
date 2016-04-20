@@ -9,4 +9,7 @@ class Person extends Model
 {
     use SoftDeletes;
     protected $dates =["deleted_at"];
+    public function main_ref(){
+        return $this->belongsTo('App\Person', 'ancillary');
+    }
 }

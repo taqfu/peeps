@@ -7,6 +7,7 @@
     @endif
     <form method="POST" action="{{ route('person.store') }}">
         {{ csrf_field() }}
+        <input type='hidden' name='ancillary' value='0'/>
         <input type='submit' value='New Person' />
     </form>
     <form method="POST" action="{{ route('groupType.store') }}">  
@@ -25,7 +26,7 @@
             {{ method_field("DELETE") }}
             <input type='submit' value='x' />
         </form>
-            {{ $group_type->name }}
+            <a href="{{ route('group_listing', ['type_id'=> $group_type->id]) }}">{{ $group_type->name }}</a>
         </div>
 
 
@@ -40,7 +41,8 @@
     </div>
     @foreach ($people as $person)
         <div class='personListing'>
-            <a href='/peeps/public/profile/{{$person->id}}'>
+            <a name='person{{$person->id}}'></a>
+            <a href="{{ route('summary', ['person_id'=>$person->id]) }}">
                 @if ($sort === "id")
                 Person #{{ $person->id }} - 
                 @endif
@@ -63,7 +65,9 @@
                             <input type='submit' value='x' class='textButton red' />
                         </form>
                         <div class='groupForPerson'>
-                            {{ $group->type->name }}
+                            <a href="{{ route('group_listing', ['type_id'=>$group->type_id]) }}">
+                                {{ $group->type->name }}
+                            </a>
                         </div>
                     @endif
                 @endforeach
@@ -71,7 +75,7 @@
             <div id='listOfGroupTypes{{$person->id}}' class='clear listOfGroupTypes'>
                 Add to group:
                 @foreach ($group_types as $group_type)
-                    <form method="POST" action="/peeps/public/group" class='newGroupForm'>
+                    <form method="POST" action="{{route('group.store') }}" class='newGroupForm'>
                         {{ csrf_field() }}
                         <input type='hidden' name='personID' value='{{ $person->id }}' />
                         <input type='hidden' name='typeID' value='{{ $group_type->id }}' />

@@ -23,23 +23,29 @@ use \App\SimpleType;
         } else if ($sort==="numerically"){
             $order_by = "id";
         } else {
-            $order_by = "created_at";
+            $order_by = "name";
         }
         return view('listings', [
             "sort" => $order_by,
-            "people" => Person::orderBy($order_by, "asc")->get(),
+            "people" => Person::where('ancillary', 0)->orderBy($order_by, "asc")->get(),
             "groups" => Group :: orderBy("created_at", "asc")->geT(),
             "group_types" => GroupType :: orderBy("name", "asc")->get(),
         ]);
     }]);
 
-    Route::get('/profile/{person_id}', function ($person_id){
+    Route::get('/group/{type_id}', ['as'=>'group_listing', function($type_id){
+        return view('group', [
+            "group" => Group :: where('type_id', $type_id)->orderBy("name", "asc")->get(),
+        ]);
+    }]);
+
+    Route::get('/profile/{person_id}', ['as'=>'summary', function ($person_id){
         return view ('profile.summary', [
             "person_id" => $person_id,
             "people"=> Person::where("id", $person_id)->get(),
             "characteristics" => Characteristic::where('person_id', $person_id)->where("simple_id", 2)->get()
         ]);
-    });
+    }]);
 
     Route::get('/profile/{person_id}/characteristics', function ($person_id){
         return view ('profile.characteristics', [
@@ -48,7 +54,13 @@ use \App\SimpleType;
             "characteristics" => Characteristic::where('person_id', $person_id)->orderBy("simple_id", "asc")->get()
         ]);
     });
-    
+    Route::get('/profile/{person_id}/network', function ($person_id){
+        return view ('profile.network', [
+            "person_id" => $person_id,
+            "profile" => Person::where('id', $person_id)->get(),
+            "people"=> Person::where("ancillary", $person_id)->orderBy('name', 'asc')->get(),
+        ]);
+    });
     Route::get('/profile/{person_id}/notes', function ($person_id){
         return view ('profile.notes', [
             "person_id" => $person_id,
@@ -57,9 +69,9 @@ use \App\SimpleType;
         ]);
     });
 
-    Route::resource('/note', 'NoteController');
+    Route::resource('note', 'NoteController');
     Route::resource('person', 'PersonController');
-    Route::resource('/type/simple', 'SimpleTypeController');
-    Route::resource('/characteristic', 'CharacteristicController');
+    Route::resource('simpleType', 'SimpleTypeController');
+    Route::resource('characteristic', 'CharacteristicController');
     Route::resource('group', 'GroupController');
     Route::resource('groupType', 'GroupTypeController');

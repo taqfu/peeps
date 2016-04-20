@@ -1,12 +1,18 @@
 @extends ("master")
 @section ("content")
-    <a href='/peeps/public/' class='profileMenu'>Listings</a>
-<a href='/peeps/public/profile/{{$person_id}}/characteristics' class='profileMenu'>Characteristics</a>
-    <a href='/peeps/public/profile/{{$person_id}}/notes' class='profileMenu'>Notes</a>
-<div class='clear'>
-    Display Name:
     @foreach ($people as $person)
     @endforeach
+    <a href='/peeps/public/' class='profileMenu'>Listings</a>
+    <a href='/peeps/public/profile/{{$person_id}}/characteristics' class='profileMenu'>Characteristics</a>
+    <a href='/peeps/public/profile/{{$person_id}}/network' class='profileMenu'>Social Network</a>
+    <a href='/peeps/public/profile/{{$person_id}}/notes' class='profileMenu'>Notes</a>
+    <div class='clear'>
+    @if ($person->ancillary!=0)
+        <h3 class='ancillary'>
+            Auxillary to {{ $person->main_ref->name }}
+        </h3>
+    @endif
+    Display Name:
     <span style='font-style:italic;'>
     @if (empty($person->name))
         None.
@@ -18,7 +24,7 @@
     <input type='button' id='hideNamesAvailable' value='[ - ]' class='textButton' style='display:none' />
     <div id='listOfNamesAvailable' style='display:none;'>
     @forelse ($characteristics as $characteristic)
-        <form method="POST" action="/peeps/public/person/{{$person_id}}" class='noMargin'>
+        <form method="POST" action="{{ route('person.update', ['id'=> $person_id]) }}" class='noMargin'>
         {{csrf_field()}}
         {{ method_field('PATCH') }}
         

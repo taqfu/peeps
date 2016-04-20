@@ -12,4 +12,7 @@ class Group extends Model
     public function type(){
         return $this->belongsTo('App\GroupType', 'type_id');
     }
+    public function member(){
+        return $this->belongsTo('App\Person', 'person_id');
+    }
 }
