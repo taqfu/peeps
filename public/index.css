@@ -1,3 +1,6 @@
+        #content{
+            opacity:.3;
+        }
         h2{
             clear:both;
             margin-bottom:0px;
@@ -25,7 +28,8 @@
             font-weight:bold;
             margin-bottom:8px;
         }
-        #characteristicTime, #characteristicDate{
+        #characteristicTime, #characteristicDate, #characteristicString, #createCharacteristic{
+            display:none;
             float:left;
         }
         .characteristicValue{

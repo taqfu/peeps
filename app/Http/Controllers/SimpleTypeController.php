@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\SimpleType;
+use App\Characteristic;
 
 class SimpleTypeController extends Controller
 {
@@ -87,6 +88,7 @@ class SimpleTypeController extends Controller
     public function destroy(Request $request, $id)
     {
          
+        Characteristic::where('simple_id', $id)->delete();
         SimpleType::where("id", $id)->delete(); 
         return redirect("/profile/$request->personID/characteristics");
     }

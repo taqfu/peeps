@@ -1,4 +1,5 @@
 <select id='DateMonth' name="month" >
+<option></option>
 
 @for($month=1 ; $month<13 ; $month++)
     <?php $month_val = $month<10 ? "0".$month : $month; ?>
@@ -7,6 +8,7 @@
 </select>
 
 <select id='DateDay' name="day">
+<option></option>
 @for($day=1 ; $day<32 ; $day++)
     <?php $day_val = $day<10 ? "0".$day : $day;?>
     <option value='{{ $day_val }}' >{{ $day }}</option
@@ -15,13 +17,10 @@
 </select>
 
 <select id='DateYear' name="year">
+<option></option>
 
-@for($year=date("Y")-160 ; $year<date("Y")+10 ; $year++)
-        @if ($year==date("Y"))
-            <option value='{{ $year }}' selected>{{ $year }}</option>
-        @elseif ($year!==date("Y"))
+@for($year=date("Y")+10; $year>date("Y")-160 ; $year--)
             <option value='{{ $year }}' >{{ $year }}</option>
-        @endif
 @endfor
 
 </select>
