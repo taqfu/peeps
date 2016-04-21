@@ -33,9 +33,12 @@ $(document.body).ready(function () {
     });
     $(document).on("click", ".selectCharacteristicType", function (event) {
         var type_id = event.target.id.substr(10, event.target.id.length-10);
-        console.log(type_id);
         $(".allCharacteristicTypes").prop("checked", false);
         $("#simpleType"+type_id).prop("checked", true);
+    });
+    $(document).on("click", ".selectValueType", function (event) {
+        $(".allValueTypes").prop("checked", false);
+        $("#valueType"+event.target.value).prop("checked", true);
     });
     $(document).on("click", "#showGroupTypeNames", function (event) {
         $("#showGroupTypeNames").hide();

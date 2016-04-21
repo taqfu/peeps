@@ -39,7 +39,7 @@ class SimpleTypeController extends Controller
     {
         $simple_type = new SimpleType;
         $simple_type->name = $request->newSimpleTypeName;
-        $simple_type->value_type = "string";        
+        $simple_type->value_type = $request->valueType;
         $simple_type->save();  
         return redirect ("/profile/$request->person_id/characteristics");
     }
@@ -84,10 +84,11 @@ class SimpleTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+         
         SimpleType::where("id", $id)->delete(); 
-        return redirect("/");
+        return redirect("/profile/$request->personID/characteristics");
     }
 
 }

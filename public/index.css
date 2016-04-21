@@ -10,6 +10,10 @@
         #hideGroupTypeNames, .listOfGroupTypes, .hideGroupTypesForPerson{
             display:none;
         }
+        .allCharacteristicTypes{
+            float:left;
+            margin-left:16px;
+        }
         .backLink{
             margin-right:8px;
             margin-left:8px;
@@ -20,6 +24,9 @@
         .ancillary{
             font-weight:bold;
             margin-bottom:8px;
+        }
+        #characteristicTime, #characteristicDate{
+            float:left;
         }
         .characteristicValue{
             float:left;
@@ -34,6 +41,15 @@
             margin-right:8px;
         }   
         .deleteNoteForm{
+        }
+        div.deleteSimpleType{
+            float:left;
+            text-align:center;
+        }
+        form.deleteSimpleType{
+            float:right;
+            margin:0px;
+            margin-left:8px;
         }
         .groupForPerson{
             float:left;
@@ -101,7 +117,6 @@
             float:right;
         }
         .selectCharacteristicType{
-            margin-right:16px;
         }
         .sortList{
             margin-top:16px;
