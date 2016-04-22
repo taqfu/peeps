@@ -49,6 +49,9 @@ class CharacteristicController extends Controller
             case "date":
                 $characteristic->date = $request->date_value;
                 break;
+            case "number":
+                $characteristic->number = $request->number_value;
+                break;
         }
         $characteristic->save();
         return redirect("/profile/$request->person_id");

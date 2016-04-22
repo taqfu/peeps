@@ -3,19 +3,22 @@
 <?php 
     define('URL_CHARACTERISTIC', 8);
 ?>
-    <div id='noteInput' style='position:fixed;top:35%;left:30%;border:1px solid black;text-align:center;width:400;height:200;'>
+    <div id='characteristicNoteInput'>
         <div>
             Please input your note:
         </div>
         <div>
         <form method='POST' action="{{ route('note.store') }}">
-        <input type='hidden' name='noteType' value='text' />
-        <input type='hidden' id='noteCharacteristicID' name='characteristicID'/>
-        <input type='hidden' name='personID'  value='0'/>
-        <textarea style='width:400px;height:150px;' name='newNote'></textarea>
-        <input type='submit'>
+            {{ csrf_field() }}
+            <input type='hidden' name='noteType' value='text' />
+            <input type='hidden' id='noteCharacteristicID' name='characteristicID'/>
+            <input type='hidden' name='personID'  value='{{ $person_id }}'/>
+            <textarea style='width:400px;height:150px;' name='newNote'></textarea>
+            <input type='submit' value='Create Note'>
+            <input type='button' id='cancelCharacteristicNote' value='Cancel' />
         </form>
         </div>
+
     </div>
     <div id='content'>
     <a href='/peeps/public/' class='profileMenu'>Listings</a>
@@ -25,8 +28,10 @@
         {{ csrf_field() }}
         <div style='margin-bottom:8px;'>
         Type:
-            <input id='valueTypeText' type='radio' name='valueType' value='text' class='allValueTypes' checked/>
-            <input type='button' class='selectValueType textButton' value='Text' />
+            <input id='valueTypeString' type='radio' name='valueType' value='string' class='allValueTypes' checked/>
+            <input type='button' class='selectValueType textButton' value='String' />
+            <input id='valueTypeNumber' type='radio' name='valueType' value='number' class='allValueTypes' />
+            <input type='button' class='selectValueType textButton' value='Number' />
             <input id='valueTypeDate' type='radio' name='valueType' value='date'  class='allValueTypes'/>
             <input type='button' class='selectValueType textButton' value='Date' />
             <input id='valueTypeTime' type='radio' name='valueType' value='time'  class='allValueTypes'/>
@@ -89,12 +94,26 @@
                 @endif
             @elseif  ($characteristic->value_type=="date")
                 {{ date("M d, Y", strtotime($characteristic->date)) }}
-
+            @elseif ($characteristic->value_type=="number")
+                {{ $characteristic->number }}
             @endif
         </div>
         <div class='characteristicNote'>
-            <input type='button' class='textButton' value='[ ? ]' />
-            <input type='button' class='textButton' value='[ + ]' />
+            <input type='button' id='noteCharacteristic{{ $characteristic->id }}' 
+              class='textButton showCharacteristicNoteInput' value='[ + ]' />
+            @if (count($characteristic->notes)>0)
+                <input id='showCharacteristicNote{{ $characteristic->id }}' type='button' class='textButton showCharacteristicNote' value='[ ? ]' />
+                <input id='hideCharacteristicNote{{ $characteristic->id }}' type='button' class='textButton hideCharacteristicNote' value='[ ? ]' />
+            @endif
+                <span id='characteristicNotes{{$characteristic->id }}' class='allCharacteristicNotes'>
+            @foreach ($characteristic->notes as $note) 
+                <span style='font-weight:bold;'>
+                    {{ date("m/d/y g:i", strtotime($note->created_at))}} 
+                </span>
+                {{ $note->note }}
+                
+            @endforeach
+                </span>
         </div>
     @endforeach
     </div>

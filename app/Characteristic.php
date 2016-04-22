@@ -11,6 +11,8 @@ class Characteristic extends Model
     protected $dates =["deleted_at"];
     public function type (){
         return $this->belongsTo('App\SimpleType', 'simple_id');
-
+    }
+    public function notes (){
+        return $this->hasMany('App\Note');
     }
 }

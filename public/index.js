@@ -1,4 +1,28 @@
 $(document.body).ready(function () {
+    
+    $(document).on("click", ".showCharacteristicNote", function (event) {
+        var characteristicID = event.target.id.substr(22, event.target.id.length-22);     
+        $("#showCharacteristicNote" + characteristicID).hide();
+        $("#hideCharacteristicNote" + characteristicID).show();
+        $("#characteristicNotes" + characteristicID).show();
+    });
+    $(document).on("click", ".hideCharacteristicNote", function (event) {
+        var characteristicID = event.target.id.substr(22, event.target.id.length-22);     
+        $("#showCharacteristicNote" + characteristicID).show();
+        $("#hideCharacteristicNote" + characteristicID).hide();
+        $("#characteristicNotes" + characteristicID).hide();
+    });
+    $(document).on("click", ".showCharacteristicNoteInput", function (event) {
+        $("#characteristicNoteInput").show();    
+        $("#content").css("opacity", ".3");
+        characteristic_id = event.target.id.substr(18, event.target.id.length-18);
+        $("#noteCharacteristicID").val(characteristic_id);
+    });
+    $(document).on("click", "#cancelCharacteristicNote", function (event) {
+        $("#characteristicNoteInput").hide();    
+        $("#content").css("opacity", "1");
+        $("#noteCharacteristicID").val("");
+    });
     $(document).on("click", "#createCharacteristic", function (event) {
         var typeID = $('input[name=characteristicType]:checked').val()
           .substr(6, $('input[name=characteristicType]:checked').val().length-6);
@@ -6,18 +30,19 @@ $(document.body).ready(function () {
         var characteristicValueType = $("#characteristicValueType").val();
         createCharacteristic(characteristicValueType, typeID, personID);
     });
+/*
     $(document).on("keydown", "#characteristicString", function (event) {
         if (event.key==="Enter"){
             var typeID = $('input[name=characteristicType]:checked').val()
               .substr(6, $('input[name=characteristicType]:checked').val().length-6);
             var personID = $("#personID").val();
             var characteristicValueType = $("#characteristicValueType").val();
-            var characteristicString = $("#characteristicString").val();
             if (characteristicString && characteristicString.trim()!=""){
-                createCharacteristic(personID, characteristicValueType, typeID, characteristicString);
+                createCharacteristic(characteristicValueType, typeID, personID);
             }
         }
     });
+*/
     $(document).on("click", "#showNamesAvailable", function (event) {
         $("#showNamesAvailable").hide();
         $("#hideNamesAvailable").show();
@@ -41,7 +66,9 @@ $(document.body).ready(function () {
         valueType = capitalizeFirstLetter(valueType);
         $(".characteristicInputs").hide();
         $("#createCharacteristic").show();
-        if (valueType==="Datetime"){
+        if (valueType==="Number"){
+            $("#characteristicString").show(); 
+        } else if (valueType==="Datetime"){
             $("#characteristicDate").show();
             $("#characteristicTime").show();
         } else if (valueType!=="Datetime"){
@@ -89,6 +116,11 @@ function createCharacteristic(valueType, typeID, personID){
             console.log(personID, valueType, typeID, characteristicDate);
             createCharacteristicFromDate(personID, valueType, typeID, characteristicDate);
         }
+    } else if (valueType==="number"){
+        var numberValue = Number($("#characteristicString").val());
+        if (!isNaN(numberValue)){
+            createCharacteristicFromNumber(personID, valueType, typeID, numberValue)
+        }
     }
 }
 function createCharacteristicFromDate(personID, valueType, typeID, dateValue){
@@ -101,6 +133,21 @@ function createCharacteristicFromDate(personID, valueType, typeID, dateValue){
             url:"/peeps/public/characteristic",
             data: {person_id : personID, value_type : valueType, 
               simple_id : typeID, date_value : dateValue}
+        })
+            .done(function(result){
+                console.log(result);
+                window.location.reload();
+            });
+}
+function createCharacteristicFromNumber(personID, valueType, typeID, numberValue){
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method:"POST",
+            url:"/peeps/public/characteristic",
+            data: {person_id : personID, value_type : valueType, 
+              simple_id : typeID, number_value : numberValue}
         })
             .done(function(result){
                 console.log(result);

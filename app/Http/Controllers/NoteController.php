@@ -43,7 +43,11 @@ class NoteController extends Controller
         $note->person_id = $request->personID;
         $note->note = $request->newNote;
         $note->save();
-        return redirect("/profile/$request->personID/notes");
+        if ($request->characteristicID==0){
+            return redirect("/profile/$request->personID/notes");
+        } else if ($request->characteristicID!=0){
+            return redirect("/profile/$request->personID/characteristics");
+        }
     }
 
     /**

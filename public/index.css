@@ -1,5 +1,5 @@
         #content{
-            opacity:.3;
+           /* opacity:.3;*/
         }
         h2{
             clear:both;
@@ -10,12 +10,27 @@
         #createCharacteristicInputs{
             margin-top:8px;
         }
+        #characteristicNoteInput{
+            position:fixed;
+            z-index:101;
+            top:35%;
+            left:30%;
+            border:1px solid black;
+            text-align:center;
+            width:400;
+            height:200;
+            display:none;
+        }
         #hideGroupTypeNames, .listOfGroupTypes, .hideGroupTypesForPerson{
             display:none;
         }
         .allCharacteristicTypes{
             float:left;
             margin-left:16px;
+        }
+        .allCharacteristicNotes{
+            color:grey;
+            display:none;
         }
         .backLink{
             margin-right:8px;
@@ -64,7 +79,10 @@
         .groupTypeName{
             padding-left:16px;
         }
-
+        .hideCharacteristicNote{
+            color:red;
+            display:none;
+        }
         .left{
             float:left;
         }
