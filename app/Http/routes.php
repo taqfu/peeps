@@ -6,6 +6,7 @@ use \App\Person;
 use \App\Group;
 use \App\GroupType;
 use \App\SimpleType;
+use \App\ToDo;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -50,6 +51,7 @@ use \App\SimpleType;
     Route::get('/profile/{person_id}/characteristics', function ($person_id){
         return view ('profile.characteristics', [
             "person_id" => $person_id,
+            "people"=> Person::where("id", $person_id)->get(),
             "simple_types" => SimpleType::orderBy("name", "asc")->get(),
             "characteristics" => Characteristic::where('person_id', $person_id)->orderBy("simple_id", "asc")->get()
         ]);
@@ -68,10 +70,17 @@ use \App\SimpleType;
             "notes"=> Note::where("person_id", $person_id)->orderBy("created_at", "desc")->get()
         ]);
     });
-
+    Route::get('/profile/{person_id}/todo', function ($person_id){
+        return view ('profile.ToDo', [
+            "person_id" => $person_id,
+            "people"=> Person::where("id", $person_id)->get(),
+            "to_do_items"=> ToDo::where("people_id", $person_id)->orderBy("created_at", "asc")->get()
+        ]);
+    });
     Route::resource('note', 'NoteController');
     Route::resource('person', 'PersonController');
     Route::resource('simpleType', 'SimpleTypeController');
     Route::resource('characteristic', 'CharacteristicController');
     Route::resource('group', 'GroupController');
     Route::resource('groupType', 'GroupTypeController');
+    Route::resource('toDo', 'ToDoController');

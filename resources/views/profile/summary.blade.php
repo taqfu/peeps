@@ -6,6 +6,7 @@
     <a href='/peeps/public/profile/{{$person_id}}/characteristics' class='profileMenu'>Characteristics</a>
     <a href='/peeps/public/profile/{{$person_id}}/network' class='profileMenu'>Social Network</a>
     <a href='/peeps/public/profile/{{$person_id}}/notes' class='profileMenu'>Notes</a>
+    <a href='/peeps/public/profile/{{$person_id}}/todo' class='profileMenu'>To Do</a>
     <div class='clear'>
     @if ($person->ancillary!=0)
         <h3 class='ancillary'>

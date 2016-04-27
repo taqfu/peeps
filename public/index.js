@@ -1,17 +1,5 @@
 $(document.body).ready(function () {
     
-    $(document).on("click", ".showCharacteristicNote", function (event) {
-        var characteristicID = event.target.id.substr(22, event.target.id.length-22);     
-        $("#showCharacteristicNote" + characteristicID).hide();
-        $("#hideCharacteristicNote" + characteristicID).show();
-        $("#characteristicNotes" + characteristicID).show();
-    });
-    $(document).on("click", ".hideCharacteristicNote", function (event) {
-        var characteristicID = event.target.id.substr(22, event.target.id.length-22);     
-        $("#showCharacteristicNote" + characteristicID).show();
-        $("#hideCharacteristicNote" + characteristicID).hide();
-        $("#characteristicNotes" + characteristicID).hide();
-    });
     $(document).on("click", ".showCharacteristicNoteInput", function (event) {
         $("#characteristicNoteInput").show();    
         $("#content").css("opacity", ".3");
@@ -30,19 +18,16 @@ $(document.body).ready(function () {
         var characteristicValueType = $("#characteristicValueType").val();
         createCharacteristic(characteristicValueType, typeID, personID);
     });
-/*
     $(document).on("keydown", "#characteristicString", function (event) {
+        console.log("ASDFA");
         if (event.key==="Enter"){
             var typeID = $('input[name=characteristicType]:checked').val()
               .substr(6, $('input[name=characteristicType]:checked').val().length-6);
             var personID = $("#personID").val();
             var characteristicValueType = $("#characteristicValueType").val();
-            if (characteristicString && characteristicString.trim()!=""){
-                createCharacteristic(characteristicValueType, typeID, personID);
-            }
+            createCharacteristic(characteristicValueType, typeID, personID);
         }
     });
-*/
     $(document).on("click", "#showNamesAvailable", function (event) {
         $("#showNamesAvailable").hide();
         $("#hideNamesAvailable").show();
@@ -101,9 +86,41 @@ $(document.body).ready(function () {
         $("#hideGroupTypesForPerson" + person_id).hide();
         $("#listOfGroupTypes" + person_id).hide();
     });
+    $(document).on("click", ".showCharacteristicNote", function (event) {
+        var characteristicID = event.target.id.substr(22, event.target.id.length-22);     
+        $("#showCharacteristicNote" + characteristicID).hide();
+        $("#hideCharacteristicNote" + characteristicID).show();
+        $("#characteristicNotes" + characteristicID).show();
+    });
+    $(document).on("click", ".hideCharacteristicNote", function (event) {
+        var characteristicID = event.target.id.substr(22, event.target.id.length-22);     
+        $("#showCharacteristicNote" + characteristicID).show();
+        $("#hideCharacteristicNote" + characteristicID).hide();
+        $("#characteristicNotes" + characteristicID).hide();
+    });
     
+    $(document).on("change", ".toDo", function (event) {
+        var toDoID = event.target.id.substr(4, event.target.id.length-4);     
+        var toDoStatus =  $("#toDo"+toDoID).is(":checked");
+        changeToDoStatus(toDoID, toDoStatus);
+    });
 });
 
+function changeToDoStatus(id, status){
+
+        console.log(id, status);
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:"/peeps/public/toDo/"+id,
+            type:"PUT",
+            data:{status:status},
+            success: function (response){
+               console.log(response); 
+            }
+        })
+}
 function createCharacteristic(valueType, typeID, personID){
     if (valueType==="string"){ 
         var characteristicString = $("#characteristicString").val();

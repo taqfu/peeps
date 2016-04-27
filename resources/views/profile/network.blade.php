@@ -3,6 +3,8 @@
     <a href='/peeps/public/' class='profileMenu'>Listings </a>
     <a href='/peeps/public/profile/{{$person_id}}' class='profileMenu'>Summary</a>
     <a href='/peeps/public/profile/{{$person_id}}/characteristics' class='profileMenu'>Characteristics</a>
+    <a href='/peeps/public/profile/{{$person_id}}/notes' class='profileMenu'>Notes</a>
+    <a href='/peeps/public/profile/{{$person_id}}/todo' class='profileMenu'>To Do</a>
     <h1 class='profileHeading'>
         Social Network 
     </h1>

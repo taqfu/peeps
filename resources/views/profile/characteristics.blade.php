@@ -1,5 +1,8 @@
 @extends ('master')
 @section ('content')
+@foreach ($people as $person)
+@endforeach
+
 <?php 
     define('URL_CHARACTERISTIC', 8);
 ?>
@@ -23,7 +26,12 @@
     <div id='content'>
     <a href='/peeps/public/' class='profileMenu'>Listings</a>
     <a href='/peeps/public/profile/{{$person_id}}' class='profileMenu'>Summary</a>
+    <a href='/peeps/public/profile/{{$person_id}}/network' class='profileMenu'>Social Network</a>
     <a href='/peeps/public/profile/{{$person_id}}/notes' class='profileMenu'>Notes</a>
+    <a href='/peeps/public/profile/{{$person_id}}/todo' class='profileMenu'>To Do</a>
+    <h1>
+        {{ $person->name }}
+    </h1>
     <form method="POST" action="{{ route('simpleType.store') }}" class='newSimpleTypeForm'>
         {{ csrf_field() }}
         <div style='margin-bottom:8px;'>
