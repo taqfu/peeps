@@ -31,6 +31,15 @@
         {{ method_field('DELETE') }}
         <input type='submit' value='x' class='textButton red'/>
     </form>
+    <span
+        @if ($to_do->completed_at!=null)
+            style='text-decoration:line-through;color:grey;'
+        @endif
+    >
     {{ $to_do->name }}
+    </span>
+    @if ($to_do->completed_at!=null)
+        <span style='color:grey;font-style:italic;'> (Completed {{ date ("m/d/y/ h:i", strtotime($to_do->completed_at)) }}) </span>
+    @endif
 @endforeach
 @endsection

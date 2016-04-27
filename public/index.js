@@ -115,9 +115,9 @@ function changeToDoStatus(id, status){
             },
             url:"/peeps/public/toDo/"+id,
             type:"PUT",
-            data:{status:status},
+            data:{toDostatus:status},
             success: function (response){
-               console.log(response); 
+                window.location.reload();
             }
         })
 }

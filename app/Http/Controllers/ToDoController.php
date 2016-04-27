@@ -78,9 +78,9 @@ class ToDoController extends Controller
     public function update(Request $request, $id)
     {
         $to_do = ToDo::find($id);
-        if ((boolean)$request->status){
+        if ($request->toDostatus==="true"){
            $to_do->completed_at = date('Y-m-d H:i:s'); 
-        } else if (!(boolean)$request->status){
+        } else if ($request->toDostatus==="false"){
             $to_do->completed_at = NULL;
         }
         $to_do->save();
