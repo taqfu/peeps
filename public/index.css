@@ -25,8 +25,11 @@
             height:200;
             display:none;
         }
-        #hideGroupTypeNames, .listOfGroupTypes, .hideGroupTypesForPerson{
+        .listOfNewPersonTags, .hideNewPersonTags, .hideNewTypeTags, .listOfNewTypeTags, #hideGroupTypeNames, .listOfGroupTypes, .hideGroupTypesForPerson{
             display:none;
+        }
+        .activeProfileMenu{
+            font-weight:bold;
         }
         .allCharacteristicTypes{
             float:left;
@@ -35,6 +38,13 @@
         .allCharacteristicNotes{
             color:grey;
             display:none;
+        }
+        .auxillaryLink{
+            color:black;
+            text-decoration:none; 
+        }
+        .auxillaryLink:hover{
+            text-decoration:underline;
         }
         .backLink{
             margin-right:8px;

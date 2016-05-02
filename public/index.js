@@ -38,6 +38,40 @@ $(document.body).ready(function () {
         $("#hideNamesAvailable").hide();
         $("#listOfNamesAvailable").hide(); 
     });
+    $(document).on("click", "#showNewTagType", function (event) {
+        $("#showNewTagType").hide();
+        $("#hideNewTagType").show();
+        $("#newTagTypeList").show();
+    });
+    $(document).on("click", "#hideNewTagType", function (event) {
+        $("#showNewTagType").show();
+        $("#hideNewTagType").hide();
+        $("#newTagTypeList").hide();
+    });
+    $(document).on("click", ".showNewTypeTags", function (event) {
+        var noteID = event.target.id.substr(15, event.target.id.length-15);
+        $("#showNewTypeTags" + noteID).hide();
+        $("#hideNewTypeTags" + noteID).show();
+        $("#listOfNewTypeTags" + noteID).show();
+    });
+    $(document).on("click", ".hideNewTypeTags", function (event) {
+        var noteID = event.target.id.substr(15, event.target.id.length-15);
+        $("#showNewTypeTags" + noteID).show();
+        $("#hideNewTypeTags" + noteID).hide();
+        $("#listOfNewTypeTags" + noteID).hide();
+    });
+    $(document).on("click", ".showNewPersonTags", function (event) {
+        var noteID = event.target.id.substr(17, event.target.id.length-17);
+        $("#showNewPersonTags" + noteID).hide();
+        $("#hideNewPersonTags" + noteID).show();
+        $("#listOfNewPersonTags" + noteID).show();
+    });
+    $(document).on("click", ".hideNewPersonTags", function (event) {
+        var noteID = event.target.id.substr(17, event.target.id.length-17);
+        $("#showNewPersonTags" + noteID).show();
+        $("#hideNewPersonTags" + noteID).hide();
+        $("#listOfNewPersonTags" + noteID).hide();
+    });
     $(document).on("click", ".selectCharacteristicType", function (event) {
         var type_id = event.target.id.substr(10, event.target.id.length-10);
         

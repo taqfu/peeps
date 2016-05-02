@@ -6,6 +6,7 @@ use \App\Person;
 use \App\Group;
 use \App\GroupType;
 use \App\SimpleType;
+use \App\TagType;
 use \App\ToDo;
 /*
 |--------------------------------------------------------------------------
@@ -48,35 +49,38 @@ use \App\ToDo;
         ]);
     }]);
 
-    Route::get('/profile/{person_id}/characteristics', function ($person_id){
+    Route::get('/profile/{person_id}/characteristics', ['as'=>'characteristics', function ($person_id){
         return view ('profile.characteristics', [
             "person_id" => $person_id,
             "people"=> Person::where("id", $person_id)->get(),
             "simple_types" => SimpleType::orderBy("name", "asc")->get(),
             "characteristics" => Characteristic::where('person_id', $person_id)->orderBy("simple_id", "asc")->get()
         ]);
-    });
-    Route::get('/profile/{person_id}/network', function ($person_id){
+    }]);
+    Route::get('/profile/{person_id}/network', ["as"=>"network", function ($person_id){
         return view ('profile.network', [
             "person_id" => $person_id,
             "profile" => Person::where('id', $person_id)->get(),
             "people"=> Person::where("ancillary", $person_id)->orderBy('name', 'asc')->get(),
         ]);
-    });
-    Route::get('/profile/{person_id}/notes', function ($person_id){
+    }]);
+    Route::get('/profile/{person_id}/notes', ['as'=>'notes',function ($person_id){
         return view ('profile.notes', [
             "person_id" => $person_id,
-            "people"=> Person::where("id", $person_id)->get(),
-            "notes"=> Note::where("person_id", $person_id)->orderBy("created_at", "desc")->get()
+            "person"=> Person::where("id", $person_id)->get(),
+            "people"=> Person::orderBy("name", "asc")->get(),
+            "notes"=> Note::where("person_id", $person_id)->where('characteristic_id', 0)->orderBy("created_at", "desc")->get(),
+            "tag_types" => TagType :: orderBy("name", "asc")->get()
+
         ]);
-    });
-    Route::get('/profile/{person_id}/todo', function ($person_id){
+    }]);
+    Route::get('/profile/{person_id}/todo', ["as"=>"todo", function ($person_id){
         return view ('profile.ToDo', [
             "person_id" => $person_id,
             "people"=> Person::where("id", $person_id)->get(),
             "to_do_items"=> ToDo::where("people_id", $person_id)->orderBy("created_at", "asc")->get()
         ]);
-    });
+    }]);
     Route::resource('note', 'NoteController');
     Route::resource('person', 'PersonController');
     Route::resource('simpleType', 'SimpleTypeController');
@@ -84,3 +88,6 @@ use \App\ToDo;
     Route::resource('group', 'GroupController');
     Route::resource('groupType', 'GroupTypeController');
     Route::resource('toDo', 'ToDoController');
+    Route::resource('tagType', 'TagTypeController');
+    Route::resource('typeTag', 'TagController');
+    Route::resource('personTag', 'PersonTagController');

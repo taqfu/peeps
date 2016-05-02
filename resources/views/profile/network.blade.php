@@ -1,10 +1,8 @@
 @extends ('master')
 @section ('content')
-    <a href='/peeps/public/' class='profileMenu'>Listings </a>
-    <a href='/peeps/public/profile/{{$person_id}}' class='profileMenu'>Summary</a>
-    <a href='/peeps/public/profile/{{$person_id}}/characteristics' class='profileMenu'>Characteristics</a>
-    <a href='/peeps/public/profile/{{$person_id}}/notes' class='profileMenu'>Notes</a>
-    <a href='/peeps/public/profile/{{$person_id}}/todo' class='profileMenu'>To Do</a>
+    @foreach ($profile as $profile)
+    @endforeach
+    @include ("profile.menu", ["route_name"=>Route::getCurrentRoute()->getName()])
     <h1 class='profileHeading'>
         Social Network 
     </h1>
@@ -12,10 +10,16 @@
         Of
     </h1>
     <h1 class='profileHeading'>
-        @foreach ($profile as $main)
-            {{ $main->name }}
-        @endforeach
+            {{ $profile->name }}
     </h1>
+    @if ($profile->ancillary!=0)
+        <h3 class='ancillary'>
+            Auxillary to
+            <a class='auxillaryLink ' href='/peeps/public/profile/{{ $profile->ancillary }}/network'>
+                {{ $profile->main_ref->name }}
+            </a>
+        </h3>
+    @endif
     <form method="POST" action="{{ route('person.store') }}">
         {{ csrf_field() }}
         <input type='hidden' name='ancillary' value='{{ $person_id }}'/>

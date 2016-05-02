@@ -23,12 +23,16 @@
         </div>
 
     </div>
+    @if ($person->ancillary!=0)
+        <h3 class='ancillary'>
+            Auxillary to
+            <a class='auxillaryLink ' href='/peeps/public/profile/{{$person->ancillary}}/network'>
+                {{ $person->main_ref->name }}
+            </a>
+        </h3>
+    @endif
     <div id='content'>
-    <a href='/peeps/public/' class='profileMenu'>Listings</a>
-    <a href='/peeps/public/profile/{{$person_id}}' class='profileMenu'>Summary</a>
-    <a href='/peeps/public/profile/{{$person_id}}/network' class='profileMenu'>Social Network</a>
-    <a href='/peeps/public/profile/{{$person_id}}/notes' class='profileMenu'>Notes</a>
-    <a href='/peeps/public/profile/{{$person_id}}/todo' class='profileMenu'>To Do</a>
+    @include ("profile.menu", ["route_name"=>Route::getCurrentRoute()->getName()])
     <h1>
         {{ $person->name }}
     </h1>
@@ -64,7 +68,7 @@
                 <input type='submit' value='x' class='textButton red' />
             </form>
             <input id='selectType{{$simple_type->id}}' type='button' 
-              value='{{$simple_type->name}}' class='selectCharacteristicType textButton selectCharacteristic'/>
+              value='{{$simple_type->name}} ({{substr($simple_type->value_type, 0, 1) }})' class='selectCharacteristicType textButton selectCharacteristic'/>
         </div>
     @endforeach
     </div>
@@ -109,11 +113,12 @@
         <div class='characteristicNote'>
             <input type='button' id='noteCharacteristic{{ $characteristic->id }}' 
               class='textButton showCharacteristicNoteInput' value='[ + ]' />
-            @if (count($characteristic->notes)>0)
                 <input id='showCharacteristicNote{{ $characteristic->id }}' type='button' class='textButton showCharacteristicNote' value='[ ? ]' />
                 <input id='hideCharacteristicNote{{ $characteristic->id }}' type='button' class='textButton hideCharacteristicNote' value='[ ? ]' />
-            @endif
                 <span id='characteristicNotes{{$characteristic->id }}' class='allCharacteristicNotes'>
+                    <span style='font-style:italic;'>
+                        Created: {{date("m/d/y H:i", strtotime($characteristic->created_at)) }}
+                    </span>
             @foreach ($characteristic->notes as $note) 
                 <span style='font-weight:bold;'>
                     {{ date("m/d/y g:i", strtotime($note->created_at))}} 

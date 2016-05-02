@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Note;
-use DB;
-class NoteController extends Controller
+use App\TagType;
+
+class TagTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,17 +37,10 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        $note = new Note;
-        $note->type = $request->noteType;
-        $note->characteristic_id = $request->characteristicID;
-        $note->person_id = $request->personID;
-        $note->note = $request->newNote;
-        $note->save();
-        if ($request->characteristicID==0){
-            return redirect("/profile/$request->personID/notes");
-        } else if ($request->characteristicID!=0){
-            return redirect("/profile/$request->personID/characteristics");
-        }
+        $tag_type = new TagType;
+        $tag_type->name = $request->newTagTypeName;
+        $tag_type->save();
+        return redirect("/profile/$request->personID/notes");
     }
 
     /**
@@ -90,11 +83,11 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $person_id = DB::table('notes')->where("id", $id)->value('person_id');
-        Note::where("id", $id)->delete(); 
-        return redirect("/profile/$person_id/notes");
+        
+        TagType::where("id", $id)->delete();
+        return redirect("/profile/$request->personID/notes");
         
     }
 }
