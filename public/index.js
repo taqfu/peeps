@@ -159,6 +159,7 @@ function createCharacteristic(valueType, typeID, personID){
     if (valueType==="string"){ 
         var characteristicString = $("#characteristicString").val();
         if (characteristicString && characteristicString.trim()!=""){
+            $("#characteristicString").val('');
             createCharacteristicFromString(personID, valueType, typeID, characteristicString);
         }
     } else if (valueType==="date"){ 
@@ -170,6 +171,7 @@ function createCharacteristic(valueType, typeID, personID){
     } else if (valueType==="number"){
         var numberValue = Number($("#characteristicString").val());
         if (!isNaN(numberValue)){
+            $("#characteristicString").val('');
             createCharacteristicFromNumber(personID, valueType, typeID, numberValue)
         }
     }

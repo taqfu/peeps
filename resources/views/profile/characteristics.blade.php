@@ -23,6 +23,11 @@
         </div>
 
     </div>
+    <div id='content'>
+    @include ("profile.menu", ["route_name"=>Route::getCurrentRoute()->getName()])
+    <h1>
+        {{ $person->name }}
+    </h1>
     @if ($person->ancillary!=0)
         <h3 class='ancillary'>
             Auxillary to
@@ -31,11 +36,6 @@
             </a>
         </h3>
     @endif
-    <div id='content'>
-    @include ("profile.menu", ["route_name"=>Route::getCurrentRoute()->getName()])
-    <h1>
-        {{ $person->name }}
-    </h1>
     <form method="POST" action="{{ route('simpleType.store') }}" class='newSimpleTypeForm'>
         {{ csrf_field() }}
         <div style='margin-bottom:8px;'>
@@ -61,7 +61,8 @@
             <input id='simpleType{{$simple_type->id}}' type='radio'  
               name='characteristicType' value='simple{{$simple_type->id}}' class='allCharacteristicTypes selectCharacteristic' />
             <input id='simpleTypeValueType{{ $simple_type->id }}' type='hidden' value='{{ $simple_type->value_type}}' />
-            <form method="POST" action="{{ route('simpleType.destroy', ['id'=> $simple_type->id]) }}" class='deleteSimpleType'>
+            <form method="POST" action="{{ route('simpleType.destroy', ['id'=> $simple_type->id]) }}" class='deleteSimpleType'
+                onsubmit="return confirm('Are you want to delete this simple type of \'{{$simple_type->name }}\'?')">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
                 <input type='hidden' name='personID' value='{{ $person_id }}' />

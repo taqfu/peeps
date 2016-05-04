@@ -56,6 +56,7 @@
         .ancillary{
             font-weight:bold;
             margin-bottom:8px;
+            clear:both;
         }
         #characteristicTime, #characteristicDate, #characteristicString, #createCharacteristic{
             display:none;
