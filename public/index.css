@@ -25,7 +25,12 @@
             height:200;
             display:none;
         }
-        .listOfNewPersonTags, .hideNewPersonTags, .hideNewTypeTags, .listOfNewTypeTags, #hideGroupTypeNames, .listOfGroupTypes, .hideGroupTypesForPerson{
+        #showNewSimpleType{
+            margin-bottom:16px;
+            margin-top:8px;
+        }   
+        .listOfNewPersonTags, .hideNewPersonTags, .hideNewTypeTags, .listOfNewTypeTags, #hideGroupTypeNames, .listOfGroupTypes, .hideGroupTypesForPerson,  #hideNewSimpleType, #newSimpleTypeForm{
+
             display:none;
         }
         .activeProfileMenu{

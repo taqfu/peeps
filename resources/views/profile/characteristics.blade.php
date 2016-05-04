@@ -36,7 +36,9 @@
             </a>
         </h3>
     @endif
-    <form method="POST" action="{{ route('simpleType.store') }}" class='newSimpleTypeForm'>
+    <input type='button' id='showNewSimpleType' class='textButton' value='[ New Simple Type ]' />
+    <input type='button' id='hideNewSimpleType' class='textButton' value='[ Cancel ]' />
+    <form id='newSimpleTypeForm' method="POST" action="{{ route('simpleType.store') }}">
         {{ csrf_field() }}
         <div style='margin-bottom:8px;'>
         Type:
@@ -99,7 +101,7 @@
         <div class='characteristicValue'>
             @if ($characteristic->value_type=="string")
                 @if ($characteristic->simple_id==URL_CHARACTERISTIC)
-                    <a href="{{ $characteristic->string }}">
+                    <a href="{{ $characteristic->string }}" target="_blank">
                 @endif
                 {{ $characteristic->string }}
                 @if ($characteristic->simple_id==URL_CHARACTERISTIC)
@@ -114,9 +116,14 @@
         <div class='characteristicNote'>
             <input type='button' id='noteCharacteristic{{ $characteristic->id }}' 
               class='textButton showCharacteristicNoteInput' value='[ + ]' />
+                @if (count($characteristic->notes)>0)
+                <input id='showCharacteristicNote{{ $characteristic->id }}' type='button' class='textButton showCharacteristicNote' value='[ ? ]' style='color:black;' />
+
+                @elseif (count($characteristic->notes)==0)
                 <input id='showCharacteristicNote{{ $characteristic->id }}' type='button' class='textButton showCharacteristicNote' value='[ ? ]' />
+                @endif
                 <input id='hideCharacteristicNote{{ $characteristic->id }}' type='button' class='textButton hideCharacteristicNote' value='[ ? ]' />
-                <span id='characteristicNotes{{$characteristic->id }}' class='allCharacteristicNotes'>
+                    <span id='characteristicNotes{{$characteristic->id }}' class='allCharacteristicNotes'>
                     <span style='font-style:italic;'>
                         Created: {{date("m/d/y H:i", strtotime($characteristic->created_at)) }}
                     </span>

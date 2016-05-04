@@ -138,6 +138,16 @@ $(document.body).ready(function () {
         var toDoStatus =  $("#toDo"+toDoID).is(":checked");
         changeToDoStatus(toDoID, toDoStatus);
     });
+    $(document).on("click", "#showNewSimpleType", function (event) {
+        $("#showNewSimpleType").hide();
+        $("#hideNewSimpleType").show();
+        $("#newSimpleTypeForm").show();
+    });
+    $(document).on("click", "#hideNewSimpleType", function (event) {
+        $("#showNewSimpleType").show();
+        $("#hideNewSimpleType").hide();
+        $("#newSimpleTypeForm").hide();
+    });
 });
 
 function changeToDoStatus(id, status){

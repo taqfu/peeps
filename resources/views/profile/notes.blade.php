@@ -13,7 +13,7 @@ function format_appropriately($string) {
     }
     if (count($urls) > 0) {
         foreach ($urls as $key => $val) {
-            $string = str_replace($url_captions[$key], "<a href='http://$urls[$key]'>$url_captions[$key]</a>", $string);
+            $string = str_replace($url_captions[$key], "<a href='http://$urls[$key]' target='_blank'>$url_captions[$key]</a>", $string);
         }
     }
     return nl2br($string);

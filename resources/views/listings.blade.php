@@ -10,15 +10,15 @@
         <input type='hidden' name='ancillary' value='0'/>
         <input type='submit' value='New Person' />
     </form>
-    <form method="POST" action="{{ route('groupType.store') }}">  
-        {{ csrf_field() }}
-        <input type='text' name='newGroupTypeName' />
-        <input type='submit' value='New Group' />
-    </form>
     <input id='showGroupTypeNames' type='button' class='textButton' value='[ Show Group Types ]'/>
     
     <input id='hideGroupTypeNames' type='button' class='textButton' value='[ Hide Group Types ]'/>
     <div id='listOfGroupTypes' class='listOfGroupTypes'>
+    <form  method="POST" action="{{ route('groupType.store') }}">  
+        {{ csrf_field() }}
+        <input type='text' name='newGroupTypeName' />
+        <input type='submit' value='New Group' />
+    </form>
     @foreach ($group_types as $group_type)
         <div class='groupTypeName clear'>
         <form method="POST" action="{{ route('groupType.destroy', ['id'=>$group_type->id]) }}" class='deleteForm'>
