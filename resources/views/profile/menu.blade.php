@@ -28,7 +28,11 @@
         </div>
     @endif
     @if ($route_name!="todo")
-        <a href='/peeps/public/profile/{{$person_id}}/todo' class='profileMenu'>To Do</a>
+        @if (count($to_dos)>0)
+            <a href='/peeps/public/profile/{{$person_id}}/todo' class='profileMenu'>To Do (Active)</a>
+        @elseif (count($to_dos)==0)
+            <a href='/peeps/public/profile/{{$person_id}}/todo' class='profileMenu'>To Do</a>
+        @endif
     @else 
         <div class='profileMenu activeProfileMenu'>
         To Do

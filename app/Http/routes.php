@@ -44,6 +44,7 @@ use \App\ToDo;
     Route::get('/profile/{person_id}', ['as'=>'summary', function ($person_id){
         return view ('profile.summary', [
             "person_id" => $person_id,
+            "to_dos"=>ToDo::where("people_id", $person_id)->whereNull('completed_at')->get(),
             "people"=> Person::where("id", $person_id)->get(),
             "characteristics" => Characteristic::where('person_id', $person_id)->where("simple_id", 2)->get()
         ]);
@@ -52,6 +53,7 @@ use \App\ToDo;
     Route::get('/profile/{person_id}/characteristics', ['as'=>'characteristics', function ($person_id){
         return view ('profile.characteristics', [
             "person_id" => $person_id,
+            "to_dos"=>ToDo::where("people_id", $person_id)->whereNull('completed_at')->get(),
             "people"=> Person::where("id", $person_id)->get(),
             "simple_types" => SimpleType::orderBy("name", "asc")->get(),
             "characteristics" => Characteristic::where('person_id', $person_id)->orderBy("simple_id", "asc")->get()
@@ -60,6 +62,7 @@ use \App\ToDo;
     Route::get('/profile/{person_id}/network', ["as"=>"network", function ($person_id){
         return view ('profile.network', [
             "person_id" => $person_id,
+            "to_dos"=>ToDo::where("people_id", $person_id)->whereNull('completed_at')->get(),
             "profile" => Person::where('id', $person_id)->get(),
             "people"=> Person::where("ancillary", $person_id)->orderBy('name', 'asc')->get(),
         ]);
@@ -67,6 +70,7 @@ use \App\ToDo;
     Route::get('/profile/{person_id}/notes', ['as'=>'notes',function ($person_id){
         return view ('profile.notes', [
             "person_id" => $person_id,
+            "to_dos"=>ToDo::where("people_id", $person_id)->whereNull('completed_at')->get(),
             "person"=> Person::where("id", $person_id)->get(),
             "people"=> Person::orderBy("name", "asc")->get(),
             "notes"=> Note::where("person_id", $person_id)->where('characteristic_id', 0)->orderBy("created_at", "desc")->get(),
@@ -77,6 +81,7 @@ use \App\ToDo;
     Route::get('/profile/{person_id}/todo', ["as"=>"todo", function ($person_id){
         return view ('profile.ToDo', [
             "person_id" => $person_id,
+            "to_dos"=>ToDo::where("people_id", $person_id)->whereNull('completed_at')->get(),
             "people"=> Person::where("id", $person_id)->get(),
             "to_do_items"=> ToDo::where("people_id", $person_id)->orderBy("created_at", "asc")->get()
         ]);
