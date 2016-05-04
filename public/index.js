@@ -19,7 +19,6 @@ $(document.body).ready(function () {
         createCharacteristic(characteristicValueType, typeID, personID);
     });
     $(document).on("keydown", "#characteristicString", function (event) {
-        console.log("ASDFA");
         if (event.key==="Enter"){
             var typeID = $('input[name=characteristicType]:checked').val()
               .substr(6, $('input[name=characteristicType]:checked').val().length-6);
@@ -218,7 +217,7 @@ function createCharacteristicFromNumber(personID, valueType, typeID, numberValue
             });
 }
 function createCharacteristicFromString(personID, valueType, typeID, stringValue){
-        console.log(personID, valueType, typeID, stringValue);
+        //console.log(personID, valueType, typeID, stringValue);
         $.ajax({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -229,7 +228,7 @@ function createCharacteristicFromString(personID, valueType, typeID, stringValue
               simple_id : typeID, string_value : stringValue}
         })
             .done(function(result){
-                console.log(result);
+                console.log("CHECK", result);
                 window.location.reload();
             });
 }

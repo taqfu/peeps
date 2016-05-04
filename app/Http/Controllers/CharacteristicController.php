@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Characteristic;
+use App\Person;
 use DB;
 
 class CharacteristicController extends Controller
@@ -54,7 +55,15 @@ class CharacteristicController extends Controller
                 break;
         }
         $characteristic->save();
-        return redirect("/profile/$request->person_id");
+        if ($request->simple_id==2){
+            $current_person = Person::where("id", $request->person_id)->first();
+            if (empty($current_person->name)){
+                $person_model = Person::find($request->person_id);
+                $person_model->name = $request->string_value;
+                $person_model->save();
+            } 
+        }
+        //return redirect("/profile/$request->person_id");
     }
 
     /**
