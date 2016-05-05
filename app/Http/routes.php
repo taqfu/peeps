@@ -65,7 +65,9 @@ use \App\ToDo;
         return view ('profile.network', [
             "person_id" => $person_id,
             "to_dos"=>ToDo::where("people_id", $person_id)->whereNull('completed_at')->get(),
-            "profile" => Person::where('id', $person_id)->get(),
+            "relationship_types"=>RelationshipType::orderBy("name", "asc")->get(),
+            "relationships"=>Relationship::where('primary_person_id', $person_id)->get(),
+            "profile" => Person::where('id', $person_id)->first(),
             "people"=> Person::where("ancillary", $person_id)->orderBy('name', 'asc')->get(),
         ]);
     }]);
@@ -80,22 +82,21 @@ use \App\ToDo;
 
         ]);
     }]);
-    Route::get('/profile/{person_id}/relationships', ["as"=>"relationships", function ($person_id){
-        return view ('relationships', [
-            "person_id" => $person_id,
-            "to_dos"=>ToDo::where("people_id", $person_id)->whereNull('completed_at')->get(),
-            "relationship_types"=>RelationshipType::orderBy("name", "asc")->get(),
-            "relationships"=>Relationship::where('primary_person_id', $person_id)->get(),
-            "profile" => Person::where('id', $person_id)->first(),
-            "people"=> Person::where("ancillary", $person_id)->orderBy('name', 'asc')->get(),
-        ]);
-    }]);
     Route::get('/profile/{person_id}/todo', ["as"=>"todo", function ($person_id){
         return view ('profile.ToDo', [
             "person_id" => $person_id,
             "to_dos"=>ToDo::where("people_id", $person_id)->whereNull('completed_at')->get(),
             "people"=> Person::where("id", $person_id)->get(),
             "to_do_items"=> ToDo::where("people_id", $person_id)->orderBy("created_at", "asc")->get()
+        ]);
+    }]);
+    Route::get('/profile/{person_id}/relationships', ["as"=>"relationships", function ($person_id){
+        return view ('profile.relationships', [
+            "person_id" => $person_id,
+            "person"=> Person::where("id", $person_id)->first(),
+            "to_dos"=>ToDo::where("people_id", $person_id)->whereNull('completed_at')->get(),
+            "relationship_types"=>RelationshipType::orderBy("name", "asc")->get(),
+            "relationships"=>Relationship::where('primary_person_id', $person_id)->get(),
         ]);
     }]);
     Route::resource('note', 'NoteController');

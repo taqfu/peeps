@@ -157,6 +157,20 @@ $(document.body).ready(function () {
         $("#hideRelationshipTypes").hide();
         $("#listOfRelationshipTypes").hide();
     });
+    $(document).on("click", ".showNewInverseRelationships", function (event) {
+        var classLength = "showNewInverseRelationships".length;
+        var relationshipTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
+        $("#showNewInverseRelationships" + relationshipTypeID).hide();
+        $("#hideNewInverseRelationships" + relationshipTypeID).show();
+        $("#listOfNewInverseRelationships" + relationshipTypeID).show();
+    });
+    $(document).on("click", ".hideNewInverseRelationships", function (event) {
+        var classLength = "showNewInverseRelationships".length;
+        var relationshipTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
+        $("#showNewInverseRelationships" + relationshipTypeID).show();
+        $("#hideNewInverseRelationships" + relationshipTypeID).hide();
+        $("#listOfNewInverseRelationships" + relationshipTypeID).hide();
+    });
 });
 
 function changeToDoStatus(id, status){

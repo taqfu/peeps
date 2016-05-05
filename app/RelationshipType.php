@@ -9,4 +9,7 @@ class RelationshipType extends Model
 {
     use SoftDeletes;
     protected $dates =["deleted_at"];
+    public function inverse(){
+        return $this->belongsTo("App\RelationshipType", "inverse_relationship_type_id");
+    }
 }

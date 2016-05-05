@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Relationship;
 use App\RelationshipType;
 class RelationshipTypeController extends Controller
 {
@@ -73,7 +74,13 @@ class RelationshipTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $relationship_type = RelationshipType::find($id);
+        $inverse_relationship_type = RelationshipType::find($request->inverseRelationshipTypeID);
+        $relationship_type->inverse_relationship_type_id = $inverse_relationship_type->id;
+        $inverse_relationship_type->inverse_relationship_type_id = $relationship_type->id;
+        $inverse_relationship_type->save();
+        $relationship_type->save();
+        return back();
     }
 
     /**
@@ -84,6 +91,7 @@ class RelationshipTypeController extends Controller
      */
     public function destroy($id)
     {
+        Relationship::where("relationship_type_id", $id)->delete();
         RelationshipType::where("id", $id)->delete();
         return back();
         //

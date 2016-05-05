@@ -29,8 +29,7 @@
             margin-bottom:16px;
             margin-top:8px;
         }   
-        .listOfNewPersonTags, .hideNewPersonTags, .hideNewTypeTags, .listOfNewTypeTags, #hideGroupTypeNames, .listOfGroupTypes, .hideGroupTypesForPerson,  #hideNewSimpleType, #hideRelationshipTypes, #listOfRelationshipTypes, #newSimpleTypeForm{
-
+        .listOfNewPersonTags, .hideNewPersonTags, .hideNewTypeTags, .listOfNewTypeTags, #hideGroupTypeNames, .listOfGroupTypes, .hideGroupTypesForPerson, .hideNewInverseRelationships, #hideNewSimpleType, #hideRelationshipTypes, #listOfRelationshipTypes, #newSimpleTypeForm, .listOfNewInverseRelationships{
             display:none;
         }
         .activeProfileMenu{
