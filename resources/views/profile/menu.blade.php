@@ -1,3 +1,4 @@
+<div class='clear'>
         <a href='/peeps/public/' class='profileMenu'>Listings </a>
     @if ($route_name!="summary")
         <a href='/peeps/public/profile/{{$person_id}}' class='profileMenu'>Summary</a>
@@ -38,3 +39,4 @@
         To Do
         </div>
     @endif
+</div>

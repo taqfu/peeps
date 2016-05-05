@@ -147,6 +147,16 @@ $(document.body).ready(function () {
         $("#hideNewSimpleType").hide();
         $("#newSimpleTypeForm").hide();
     });
+    $(document).on("click", "#showRelationshipTypes", function (event) {
+        $("#showRelationshipTypes").hide();
+        $("#hideRelationshipTypes").show();
+        $("#listOfRelationshipTypes").show();
+    });
+    $(document).on("click", "#hideRelationshipTypes", function (event) {
+        $("#showRelationshipTypes").show();
+        $("#hideRelationshipTypes").hide();
+        $("#listOfRelationshipTypes").hide();
+    });
 });
 
 function changeToDoStatus(id, status){

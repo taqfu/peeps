@@ -5,6 +5,8 @@ use \App\Note;
 use \App\Person;
 use \App\Group;
 use \App\GroupType;
+use \App\Relationship;
+use \App\RelationshipType;
 use \App\SimpleType;
 use \App\TagType;
 use \App\ToDo;
@@ -78,6 +80,16 @@ use \App\ToDo;
 
         ]);
     }]);
+    Route::get('/profile/{person_id}/relationships', ["as"=>"relationships", function ($person_id){
+        return view ('relationships', [
+            "person_id" => $person_id,
+            "to_dos"=>ToDo::where("people_id", $person_id)->whereNull('completed_at')->get(),
+            "relationship_types"=>RelationshipType::orderBy("name", "asc")->get(),
+            "relationships"=>Relationship::where('primary_person_id', $person_id)->get(),
+            "profile" => Person::where('id', $person_id)->first(),
+            "people"=> Person::where("ancillary", $person_id)->orderBy('name', 'asc')->get(),
+        ]);
+    }]);
     Route::get('/profile/{person_id}/todo', ["as"=>"todo", function ($person_id){
         return view ('profile.ToDo', [
             "person_id" => $person_id,
@@ -92,6 +104,8 @@ use \App\ToDo;
     Route::resource('characteristic', 'CharacteristicController');
     Route::resource('group', 'GroupController');
     Route::resource('groupType', 'GroupTypeController');
+    Route::resource('relationship', 'RelationshipController');
+    Route::resource('RelationshipType', 'RelationshipTypeController');
     Route::resource('toDo', 'ToDoController');
     Route::resource('tagType', 'TagTypeController');
     Route::resource('typeTag', 'TagController');
